@@ -2,7 +2,7 @@ $(document).ready(function () {
   // typing animation
   (function ($) {
     $.fn.writeText = function (content) {
-      var contentArray = content.split(''),
+      let contentArray = content.split(''),
         current = 0,
         elem = this;
       setInterval(function () {
@@ -20,20 +20,20 @@ $(document).ready(function () {
   new WOW().init();
 
   // Push the body and the nav over by 285px over
-  var main = function () {
+  let main = function () {
     $('.fa-bars').click(function () {
       $('.nav-screen').animate(
         {
           right: '0px',
         },
-        200
+        200,
       );
 
       $('body').animate(
         {
           right: '285px',
         },
-        200
+        200,
       );
     });
 
@@ -43,14 +43,14 @@ $(document).ready(function () {
         {
           right: '-285px',
         },
-        200
+        200,
       );
 
       $('body').animate(
         {
           right: '0px',
         },
-        200
+        200,
       );
     });
 
@@ -59,14 +59,14 @@ $(document).ready(function () {
         {
           right: '-285px',
         },
-        500
+        500,
       );
 
       $('body').animate(
         {
           right: '0px',
         },
-        500
+        500,
       );
     });
   };
@@ -85,7 +85,7 @@ $(document).ready(function () {
     fitToSection: false,
 
     afterLoad: function (anchorLink, index) {
-      var loadedSection = $(this);
+      let loadedSection = $(this);
 
       //using index
       if (index == 1) {
@@ -114,7 +114,7 @@ $(document).ready(function () {
               {
                 width: $(this).attr('data-percent'),
               },
-              2500
+              2500,
             );
         });
       }
@@ -147,7 +147,7 @@ $(document).ready(function () {
           this.pathname.replace(/^\//, '') &&
         location.hostname == this.hostname
       ) {
-        var target = $(this.hash);
+        let target = $(this.hash);
         target = target.length
           ? target
           : $('[name=' + this.hash.slice(1) + ']');
@@ -156,7 +156,7 @@ $(document).ready(function () {
             {
               scrollTop: target.offset().top,
             },
-            700
+            700,
           );
           return false;
         }
@@ -167,10 +167,10 @@ $(document).ready(function () {
   //ajax form
   $(function () {
     // Get the form.
-    var form = $('#ajax-contact');
+    let form = $('#ajax-contact');
 
     // Get the messages div.
-    var formMessages = $('#form-messages');
+    let formMessages = $('#form-messages');
 
     // Set up an event listener for the contact form.
     $(form).submit(function (e) {
@@ -178,40 +178,37 @@ $(document).ready(function () {
       e.preventDefault();
 
       // Serialize the form data.
-      var formData = $(form).serialize();
+      let formData = $(form).serialize();
+      const url = 'https://formspree.io/f/xqkrljak';
 
-      // Submit the form using AJAX.
-      $.ajax({
-        type: 'POST',
-        url: $(form).attr('action'),
-        data: formData,
+      fetch(url, {
+        method: 'POST',
+        redirect: 'manual',
+        body: new URLSearchParams(formData),
       })
-        .done(function (response) {
-          // Make sure that the formMessages div has the 'success' class.
+        .then((response) => {
           $(formMessages).removeClass('error');
           $(formMessages).addClass('success');
 
           // Set the message text.
-          $(formMessages).text(response);
+          $(formMessages).text(
+            'Thai has acknowledged receipt of the message and will be in touch shortly',
+          );
 
           // Clear the form.
           $('#name').val('');
           $('#email').val('');
           $('#message').val('');
         })
-        .fail(function (data) {
+        .catch((err) => {
           // Make sure that the formMessages div has the 'error' class.
           $(formMessages).removeClass('success');
           $(formMessages).addClass('error');
 
           // Set the message text.
-          if (data.responseText !== '') {
-            $(formMessages).text(data.responseText);
-          } else {
-            $(formMessages).text(
-              'Oops! An error occured and your message could not be sent.'
-            );
-          }
+          $(formMessages).text(
+            'Oops! An error occurred and your message could not be sent.',
+          );
         });
     });
   });
