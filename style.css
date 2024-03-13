@@ -204,8 +204,7 @@ p {
 }
 
 .aboutme {
-  background: url('https://s3-us-west-2.amazonaws.com/files.bradengelhardt.com/brad-bg-main.jpg')
-    no-repeat;
+  background: url('/images/background.jpg') no-repeat;
   background-size: cover;
 }
 
@@ -388,6 +387,24 @@ p {
 
 .content-slide img {
   width: 70%;
+}
+
+.slide .description {
+  font-size: 1em;
+}
+
+.slide .technology {
+  font-weight: 600;
+}
+
+.slide .role {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.slide .info {
+  font-size: 1em;
+  font-weight: 300;
 }
 
 .fp-controlArrow.fp-next {
